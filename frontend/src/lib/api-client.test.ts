@@ -77,6 +77,36 @@ describe('apiRequest', () => {
     })
   })
 
+  it('translates known backend rules into Spanish', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        jsonResponse(422, {
+          errors: [
+            {
+              message: 'The email has already been taken',
+              rule: 'database.unique',
+              field: 'email',
+            },
+            {
+              message: 'The password field must have at least 8 characters',
+              rule: 'minLength',
+              field: 'password',
+              meta: { min: 8 },
+            },
+          ],
+        }),
+      ),
+    )
+
+    const error = await captureApiError(apiRequest('/auth/signup', { method: 'POST', body: {} }))
+
+    expect(error.fieldErrors).toEqual({
+      email: 'Ese correo ya tiene una cuenta. Inicia sesión o usa otro.',
+      password: 'Debe tener al menos 8 caracteres.',
+    })
+  })
+
   it('reports a connection problem when fetch rejects', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
 

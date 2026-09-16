@@ -1,3 +1,5 @@
+import { translateApiMessage } from './api-messages'
+
 // El backend corre en otro puerto que el dev server de Vite. VITE_API_URL permite
 // apuntar a otro host sin tocar código; el valor por defecto es el que levanta
 // `npm run dev` dentro de backend/.
@@ -8,6 +10,7 @@ type ApiErrorItem = {
   message: string
   field?: string
   rule?: string
+  meta?: Record<string, unknown>
 }
 
 /** Mensajes de respaldo para cuando el backend no manda un `errors` utilizable. */
@@ -100,11 +103,15 @@ function toApiError(status: number, payload: unknown): ApiError {
   for (const item of items) {
     // Se queda el primer mensaje de cada campo: es el que describe la causa raíz.
     if (item.field && !(item.field in fieldErrors)) {
-      fieldErrors[item.field] = item.message
+      fieldErrors[item.field] = translateApiMessage(item.message, item.rule, item.meta)
     }
   }
 
-  const message = items[0]?.message ?? FALLBACK_MESSAGES[status] ?? GENERIC_MESSAGE
+  const first = items[0]
+  const message =
+    first === undefined
+      ? (FALLBACK_MESSAGES[status] ?? GENERIC_MESSAGE)
+      : translateApiMessage(first.message, first.rule, first.meta)
   return new ApiError(status, message, fieldErrors)
 }
 
