@@ -30,6 +30,10 @@
   background: var(--bg);
   box-shadow: var(--shadow);
 
+  @media (max-width: 560px) {
+    padding: 24px;
+  }
+
   h1 {
     font-size: 32px;
     letter-spacing: -0.6px;
@@ -150,6 +154,10 @@
   background: var(--bg);
   box-shadow: var(--shadow);
 
+  @media (max-width: 560px) {
+    padding: 24px;
+  }
+
   h1 {
     font-size: 28px;
     letter-spacing: -0.5px;
@@ -189,6 +197,17 @@
   dd {
     margin: 0;
     overflow-wrap: anywhere;
+  }
+
+  /* En pantallas estrechas las dos columnas dejan al valor sin sitio y parte
+     palabras a media letra: por debajo de ese ancho se apilan. */
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+    gap: 2px;
+
+    dd:not(:last-child) {
+      margin-bottom: 12px;
+    }
   }
 }
 
