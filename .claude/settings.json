@@ -1,0 +1,38 @@
+{
+  "extraKnownMarketplaces": {
+    "ryndem": {
+      "source": {
+        "source": "github",
+        "repo": "ryndem/engineering-standards"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "ryndem-standards@ryndem": true
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/ensure-standards.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/verify-frontend.sh\"",
+            "timeout": 120,
+            "statusMessage": "Verificando frontend (oxlint + tsc)..."
+          }
+        ]
+      }
+    ]
+  }
+}
