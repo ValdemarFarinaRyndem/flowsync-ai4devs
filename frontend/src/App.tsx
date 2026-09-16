@@ -3,6 +3,7 @@ import { GuestOnly } from './auth/GuestOnly'
 import { RequireAuth } from './auth/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { SignupPage } from './pages/SignupPage'
 import './App.css'
 
 /**
@@ -17,6 +18,14 @@ function App() {
         element={
           <GuestOnly>
             <LoginPage />
+          </GuestOnly>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <GuestOnly>
+            <SignupPage />
           </GuestOnly>
         }
       />

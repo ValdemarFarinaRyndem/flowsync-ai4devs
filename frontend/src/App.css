@@ -83,6 +83,11 @@
   }
 }
 
+.form-hint {
+  font-size: 14px;
+  margin: -2px 0 0;
+}
+
 .form-field-error,
 .form-error {
   font-size: 14px;
