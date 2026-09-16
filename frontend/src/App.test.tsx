@@ -61,6 +61,6 @@ describe('App routes', () => {
 
     renderAt('/login')
 
-    expect(await screen.findByRole('heading', { name: 'Tu perfil' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Ada Lovelace' })).toBeInTheDocument()
   })
 })

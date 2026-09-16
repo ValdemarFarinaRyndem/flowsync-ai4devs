@@ -51,7 +51,7 @@ describe('LoginPage', () => {
     await user.type(screen.getByLabelText('Contraseña'), 'secret123')
     await user.click(screen.getByRole('button', { name: 'Entrar' }))
 
-    expect(await screen.findByRole('heading', { name: 'Tu perfil' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Ada Lovelace' })).toBeInTheDocument()
     expect(fetchMock.mock.calls[0][0]).toContain('/auth/login')
   })
 
