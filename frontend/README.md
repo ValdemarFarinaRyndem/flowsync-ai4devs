@@ -1,3 +1,17 @@
+# FlowSync — cliente web
+
+Arranca con `npm run dev` en <http://localhost:5173> y habla con la API de
+`backend/`, que por omisión se espera en <http://localhost:3333/api/v1>. Para
+apuntar a otro host, define `VITE_API_URL` (por ejemplo en un `.env.local`):
+
+```
+VITE_API_URL=http://localhost:3333/api/v1
+```
+
+Lo demás de este README es la plantilla de Vite con la que nació el proyecto.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

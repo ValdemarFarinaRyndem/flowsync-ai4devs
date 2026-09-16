@@ -1,0 +1,9 @@
+{
+  "standards_version": "0.63.2",
+  "class": "tooling",
+  "stacks": [],
+  "language": {
+    "default": "en",
+    "by_path": {}
+  }
+}
