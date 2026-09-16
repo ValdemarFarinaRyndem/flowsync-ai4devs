@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router'
 import { useAuth } from '../auth/useAuth'
-import { ApiError } from '../lib/api-client'
+import { toFormErrors } from '../lib/form-errors'
 import {
   PASSWORD_MIN_LENGTH,
   compactErrors,
@@ -49,13 +49,9 @@ export function SignupPage() {
         passwordConfirmation,
       })
     } catch (error) {
-      if (error instanceof ApiError) {
-        setFieldErrors(error.fieldErrors)
-        // Si el error ya sale junto a su campo, repetirlo arriba solo hace ruido.
-        setFormError(Object.keys(error.fieldErrors).length > 0 ? null : error.message)
-      } else {
-        setFormError('Ocurrió un error inesperado. Inténtalo de nuevo.')
-      }
+      const errors = toFormErrors(error)
+      setFieldErrors(errors.fieldErrors)
+      setFormError(errors.formError)
       setPending(false)
     }
   }
